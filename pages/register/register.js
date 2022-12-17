@@ -5,9 +5,57 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    flag:false
   },
-
+  toRegister(e){
+    console.log(e)
+    var usrn=e.detail.value.username
+    var p1=e.detail.value.password1
+    var p2=e.detail.value.password2
+    this.check(usrn,p1,p2)
+    if(this.data.flag){
+      console.log("Register success!")
+    }
+  },
+  check(usrn,p1,p2)
+  {
+    if(p1==''||p2==''||usrn==''){
+      wx.showToast({
+        title: '账号密码不能为空！',
+        icon:'none'
+      })
+    }
+    else if(p1!=p2){
+      wx.showToast({
+        title: '密码不一致！',
+        icon:'none'
+      })
+    }
+    else{
+      this.setData({
+        flag:true
+      })
+    }
+    //后端检查用户是否已注册
+    wx.request({
+      url: '',
+      data:{
+        username:usrn
+      },
+      success(res){
+        //返回1表示存在
+        if(res.data.code==1){
+          wx.showToast({
+            title: '账号已存在！',
+            icon:'none'
+          })
+          this.setData({
+            flag:false
+          })
+        }
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

@@ -2,11 +2,11 @@
   <view class="avatar-wrapper">
     <view>
       <view class="avatar">
-        <image style="border-radius:50%;" src="/res/images/用户头像.png"></image>
+        <image style="border-radius:50%;" src="/res/images/avatar.png"></image>
       </view>
       <view class="text">
         <text wx:if="{{userName}}">{{userName}}</text>
-        <text wx:else bindtap="toLoginPage">注册 / 登录</text>
+        <text wx:else bindtap="toLoginPage">注册/登录</text>
       </view>
     </view>
   </view>
@@ -35,8 +35,8 @@
       </block>
     </view>
     <!-- 退出选项 -->
-    <view class="alllists">
-        <navigator url="/pages/mine/mine" class="lists" open-type="redirect" bindtap="toLogout">
+    <view class="alllists"  wx:if="{{userName}}">
+        <navigator url="/pages/missionlobby/mlobby" class="lists" open-type="redirect" bindtap="toLogout">
           <view class='content'>
             <view class="listimg">
               <image src=""></image>

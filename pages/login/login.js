@@ -9,7 +9,7 @@ Page({
   },
   //登录操作
   toLogin(e) {
-    var that=this
+    var that = this
     console.log(e)
     if (e.detail.value.username == null || e.detail.value.password == null) {
       wx.showToast({
@@ -18,41 +18,42 @@ Page({
         duration: 2000
       })
     } else {
-      if (e.detail.value.username == "testuser" && e.detail.value.password=="a") {
-        var userName = e.detail.value.username;
-        var unitId = e.detail.value.id;
-        wx.setStorageSync('unitId', unitId);
-        wx.setStorageSync('userName', userName);
-        wx.switchTab({
-          url: '../mine/mine'
-        })
-      } 
-      else {
-        wx.showToast({
-          title: "请检查账号或密码！",
-          icon: 'none',
-          duration: 2000
-        })
-      }
+      // if (e.detail.value.username == "testuser" && e.detail.value.password=="a") {
+      //   var userName = e.detail.value.username;
+      //   var unitId = e.detail.value.id;
+      //   wx.setStorageSync('unitId', unitId);
+      //   wx.setStorageSync('userName', userName);
+      //   wx.switchTab({
+      //     url: '../mine/mine'
+      //   })
+      // } 
+      // else {
+      //   wx.showToast({
+      //     title: "请检查账号或密码！",
+      //     icon: 'none',
+      //     duration: 2000
+      //   })
+      // }
       //发起网络请求，判断用户存在、密码是否正确
-      /*const that = this
+      const that = this
       wx.request({
-        url: 'url',
+        url: 'http://124.71.236.82/api/login?username=%E6%9D%A8%E6%B5%A9&password=567890',
         method: "POST",
         data: {
           username: e.detail.value.username,
           password: e.detail.value.password,
         },
         success(res) {
-          if (res.data.code == "OK") {
-            var unitName = res.data.data.User.unitName;
-            var unitId = res.data.data.User.unitId;
+          console.log(res)
+          if (res.data.code == "1") {
+            var userName = e.detail.value.username;
+            var unitId = e.detail.value.id;
             wx.setStorageSync('unitId', unitId);
-            wx.setStorageSync('userName', username);
+            wx.setStorageSync('userName', userName);
             wx.switchTab({
-              url: '../login/login'
+              url: '../mine/mine'
             })
-          } 
+          }
           else {
             wx.showToast({
               title: res.data.message,
@@ -61,7 +62,7 @@ Page({
             })
           }
         }
-      })*/
+      })
     }
   },
   /**
