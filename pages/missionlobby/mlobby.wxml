@@ -1,0 +1,50 @@
+<!--pages/missionlobby/mlobby.wxml-->
+<view class="filter-box">
+  <picker mode="selector" bindchange="placeChangeHandler" value="{{placeIndex}}" range="{{placeArray}}">
+    <view class="place-filter">
+      <image src="/res/images/定位.png"></image>
+      <text wx:if="{{placeIndex==0}}">地点</text>
+      <text wx:if="{{placeIndex!=0}}">{{placeArray[placeIndex]}}</text>
+    </view>
+  </picker>
+  <swiper class="date-swiper" autoplay circular>
+    <picker mode="selector" bindchange="timeChangeHandler" value="{{timeIndex}}" range="{{timeArray}}">
+      <swiper-item>
+        <view>{{currentDate}}</view>
+      </swiper-item>
+      <swiper-item>
+        <view>{{timeArray[timeIndex]}}的任务</view>
+      </swiper-item>
+    </picker>
+  </swiper>
+  <view class="order-filter" wx:if="{{order==='ASC'}}" bindtap="orderHandler">
+    ▲
+  </view>
+  <view class="order-filter" wx:if="{{order==='DESC'}}" bindtap="orderHandler">
+    ▼
+  </view>
+
+</view>
+<view class="bg-box">
+  <swiper class="swiperPic" autoplay circular indicator-dots>
+    <swiper-item wx:for="{{swiperItems}}" wx:key="index">
+      <image src="{{item.url}}"></image>
+    </swiper-item>
+  </swiper>
+  <!-- 任务列表 -->
+  <view class="mission-box" wx:for="{{missionlist}}" wx:key="index" bindtap="acceptMission" id="{{index}}" wx:if="{{item.mplace==placeArray[placeIndex]||placeArray[placeIndex]=='默认全校'}}">
+    <image class="mission-img" src="{{item.icon}}" mode="aspectFill"></image>
+    <view class="mc-box">
+      <view class="mc-title">
+        <text>{{item.title}}</text>
+      </view>
+      <view class="mc-content">{{item.content}}</view>
+      <view class="decr-box">
+        <view class="mission-date">{{item.mdate}}</view>
+        <view class="mission-place">{{item.mplace}}</view>
+        <view class="mission-rewards">{{item.rewards}}￥</view>
+
+      </view>
+    </view>
+  </view>
+</view>

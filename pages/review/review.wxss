@@ -1,0 +1,75 @@
+/* pages/review/review.wxss */
+
+/* 任务列表 */
+.mission-box{
+  /* border: 1rpx solid; */
+  background: white;
+  border-radius: 20rpx;
+  display: flex;
+  height: 200rpx;
+  width: 700rpx;
+  margin: 0 auto;
+  justify-content: space-around;
+  margin-top: 50rpx;
+  box-shadow: 1rpx 1rpx 6rpx #aaa;
+}
+
+.mission-img{
+  height: 200rpx;
+  width: 200rpx;
+  border-radius: 20rpx;
+  border: solid 1rpx lightcoral;
+  box-shadow: 1rpx 1rpx 6rpx #aaa;
+}
+.mc-box{
+  /* border: 1rpx solid; */
+  text-shadow: 0rpx 0rpx 5rpx #fff;
+  padding: 10rpx 0rpx;
+  display: flex;
+  flex-direction: column;
+  width: 500rpx;
+}
+.mc-title{
+  /* border: 1rpx solid; */
+  height: 50rpx;
+  justify-content: center;
+  text-align: center;
+  font-size: large;
+  font: bold;
+  overflow: hidden;
+}
+.mc-content{
+  /* border: 1rpx solid; */
+  padding: 0 20rpx;
+  height: 90rpx;
+  overflow: hidden;
+}
+/* 任务时间地点描述盒子 */
+.decr-box{
+  /* border: 1rpx solid; */
+  text-align: center;
+  display: flex;
+  font-size: small;
+  overflow: hidden;
+  width: 500rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  color: 	#D3D3D3;
+ }
+ .mission-date{
+  width: 166.67rpx;
+  /* border: 1rpx solid; */
+}
+.mission-place{
+  width: 166.67rpx;
+  /* border: 1rpx solid; */
+}
+.mission-rewards{
+  /* justify-content: center; */
+  color: red;
+  font:bold;
+  width: 166.67rpx;
+  /* text-align: center;
+  line-height: 200rpx; */
+  /* border: 1rpx solid; */
+}

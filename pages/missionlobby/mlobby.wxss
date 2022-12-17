@@ -1,0 +1,155 @@
+.bg-box{
+  height: 800px;
+  background-color: #F5F5F5;
+}
+/* 滚动图 */
+.swiperPic{
+  width: 100%;
+  margin:60rpx 40rpx 0rpx 0rpx;
+}
+
+.swiperPic swiper-item:nth-child(1){
+    background-color: lightblue;
+}
+.swiperPic swiper-item:nth-child(2){
+  background-color: lightcoral;
+}
+.swiperPic swiper-item:nth-child(3){
+  background-color: lightgreen;
+}
+/* 筛选功能 */
+.filter-box{
+  display: flex;
+  /* border: 1rpx solid; */
+  height: 60rpx;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  background-color: #2b4b6b;
+  color: white;
+  font-weight: 100;
+  padding: 5rpx 20rpx;
+
+  box-sizing: border-box;
+}
+
+.place-filter{
+  display: flex;
+  width: 225rpx;
+  height: 50rpx;
+  /* border: 1rpx solid; */
+  color: white;
+}
+.place-filter image{
+  /* border: 1rpx solid; */
+  width: 50rpx;
+  height: 50rpx;
+}
+.place-filter text{
+  /* border: 1rpx solid; */
+  height: 50rpx;
+  line-height: 50rpx;
+  box-sizing: border-box;
+}
+.date-swiper{
+  /* border: 1rpx solid; */
+  width: 260rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  text-align: center;
+}
+
+.order-filter{
+  /* border: 1rpx solid; */
+  position: absolute;
+  color: white;
+  left: 660rpx;
+  top: 10rpx;
+  /* z-index: 1; */
+}
+
+
+/* 任务列表 */
+.mission-box{
+  /* border: 1rpx solid; */
+  background: white;
+  border-radius: 20rpx;
+  display: flex;
+  height: 200rpx;
+  width: 700rpx;
+  margin: 0 auto;
+  justify-content: space-around;
+  margin-top: 50rpx;
+  box-shadow: 1rpx 1rpx 6rpx #aaa;
+}
+
+.mission-img{
+  height: 200rpx;
+  width: 200rpx;
+  border-radius: 20rpx;
+  border: solid 1rpx lightcoral;
+  box-shadow: 1rpx 1rpx 6rpx #aaa;
+}
+.mc-box{
+  /* border: 1rpx solid; */
+  text-shadow: 0rpx 0rpx 5rpx #fff;
+  padding: 10rpx 0rpx;
+  display: flex;
+  flex-direction: column;
+  width: 500rpx;
+}
+.mc-title{
+  /* border: 1rpx solid; */
+  height: 50rpx;
+  justify-content: center;
+  text-align: center;
+  font-size: large;
+  font: bold;
+  overflow: hidden;
+}
+.mc-content{
+  /* border: 1rpx solid; */
+  padding: 0 20rpx;
+  height: 90rpx;
+  overflow: hidden;
+}
+/* 任务时间地点描述盒子 */
+.decr-box{
+  /* border: 1rpx solid; */
+  text-align: center;
+  display: flex;
+  font-size: small;
+  overflow: hidden;
+  width: 500rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  color: 	#D3D3D3;
+ }
+ .mission-date{
+  width: 166.67rpx;
+  /* border: 1rpx solid; */
+}
+.mission-place{
+  width: 166.67rpx;
+  /* border: 1rpx solid; */
+}
+.mission-rewards{
+  /* justify-content: center; */
+  color: red;
+  font:bold;
+  width: 166.67rpx;
+  /* text-align: center;
+  line-height: 200rpx; */
+  /* border: 1rpx solid; */
+}
+ /*
+.mission-accept{
+  background-color: lightgreen;
+  color: white;
+  width: 150rpx;
+  border-radius: 5rpx;
+ border: 1rpx solid;
+} */
+
+

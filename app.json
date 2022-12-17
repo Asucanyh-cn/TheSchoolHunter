@@ -1,0 +1,45 @@
+{
+  "pages":[
+    "pages/missionlobby/mlobby",
+    "pages/post/post",
+    "pages/mine/mine",
+    "pages/mymissions/mymissions",
+    "pages/login/login",
+    "pages/register/register",
+    "pages/reset/reset",
+    "pages/review/review"
+  ],
+  "tabBar": {
+    "custom":false,
+    "list":[
+      {
+        "pagePath":"pages/missionlobby/mlobby",
+        "text": "首页",
+        "iconPath": "/res/images/通用.png",
+        "selectedIconPath": "/res/images/通用.png"
+      },
+      {
+        "pagePath":"pages/post/post",
+        "text": "发布任务",
+        "iconPath": "/res/images/发布.png",
+        "selectedIconPath": "/res/images/发布.png"
+      },
+      {
+        "pagePath":"pages/mine/mine",
+        "text": "我的",
+        "iconPath": "/res/images/个人信息.png",
+        "selectedIconPath": "/res/images/个人信息.png"
+      }
+    ]
+  },
+  "usingComponents": {},
+  "window":{
+    "backgroundTextStyle":"dark",
+    "navigationBarBackgroundColor": "#2b4b6b",
+    "navigationBarTitleText": "The School Hunter",
+    "navigationBarTextStyle":"white",
+    "backgroundColor": "#D3D3D3"
+  },
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

@@ -1,0 +1,15 @@
+<!--pages/register/register.wxml-->
+<view class="regbox">
+<view class="accountbox">
+  <text>您的账号</text><input type="nickname" class="usrname"></input>
+</view>
+<view class="accountbox">
+  <text>您的密码</text><input type="safe-password" class="pswd"></input>
+</view>
+<view class="accountbox">
+  <text>确认密码</text><input type="safe-password" class="pswd-comfirm"></input>
+</view>
+<view class="btn-set">
+  <button class="regbtn" type="primary" bindtap="toRegister">注册</button>
+</view>
+</view>

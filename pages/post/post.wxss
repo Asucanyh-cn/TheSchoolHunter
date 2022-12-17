@@ -1,0 +1,66 @@
+.post-title{
+  text-align: center;
+  margin-top: 25rpx;
+  margin-bottom: 25rpx;
+}
+.pi{
+  border: 1rpx solid;
+  width: 600rpx;
+  margin: 0 auto;
+}
+.mTitle-i{
+  height: 100rpx;
+}
+.mContent-i{
+  height: 400rpx;
+  /* height: 250rpx; */
+}
+/* 时间地点盒子*/
+.date-place-box{
+  display: flex;
+  justify-content: space-evenly;
+}
+/*主容器*/
+.stepper {
+  /* border: 1rpx solid; */
+  display: flex;
+  justify-content: center;
+}
+/*加号和减号*/
+.stepper text{
+  /* border: solid 1rpx; */
+  width: 19px;
+  line-height: 26px;
+  text-align: center;
+}
+/*数值*/
+.stepper input {
+  width: 40px;
+  height: 26px;
+  /* margin: 0 auto; */
+  text-align: center;
+  font-size: 12px;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+/*普通样式*/
+.stepper .normal {
+  color:black;
+}
+/*禁用样式*/
+.stepper .disable {
+  color: #ccc;
+}
+/* 上传图片 */
+.postPic{
+  text-align: center;
+  margin: 0 auto;
+  width: 250rpx;
+  padding: 10rpx 20rpx;
+  box-shadow: 1rpx 1rpx 6rpx #ddd;
+}
+.button-box{
+  margin-top: 50rpx;
+  display: flex;
+  /* border: solid 1rpx; */
+}

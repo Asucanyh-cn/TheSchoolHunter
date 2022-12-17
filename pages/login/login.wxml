@@ -1,0 +1,14 @@
+<!--pages/login/login.wxml-->
+<form class="loginbox" bindsubmit="toLogin">
+  <view class="accountbox">
+    <text>账号</text><input type="nickname" name="username"></input>
+  </view>
+  <view class="accountbox">
+    <text>密码</text><input password name="password"></input>
+  </view>
+  <view class="btn-set">
+    <button form-type="submit" class="loginbtn" type="primary">登录</button>
+    <navigator class="toRegPage" open-type="navigate" url="/pages/register/register">注册</navigator>
+    <!-- <navigator class="toResetPage" open-type="navigate" url="/pages/reset/reset">修改密码</navigator> -->
+  </view>
+</form>

@@ -1,0 +1,35 @@
+<view class="post-box">
+  <view class="post-title">任务标题</view>
+  <textarea class="mTitle-i pi"></textarea>
+  <view class="post-title">任务内容</view>
+  <textarea class="mContent-i pi"></textarea>
+  <view class="post-title">悬赏金额</view>
+</view>
+<view class='stepper'>
+  <text class='{{minusStatus}}' type='number' bindtap='bindMinus'>-</text>
+  <input bindinput='bindManual' value='{{num}}'></input>
+  <text bindtap='bindPlus'>+</text>
+</view>
+
+  <view class="date-place-box post-title">
+    <picker mode="date" header-text="选择时间" value="{{mdate}}" bindchange="bindDateChange">
+      <view>
+        <view class="mdate">截止日期</view>
+        <text>{{mdate}}</text>
+      </view>
+    </picker>
+    <picker header-text="选择地点" value="{{placesArr[placeIndex]}}" bindchange="bindPlaceChange" range="{{placesArr}}">
+      <view>
+        <view class="mplace">任务地点</view>
+        <text>{{placesArr[placeIndex]}}</text>
+      </view>
+    </picker>
+  </view>
+
+<view class="postPic">
+  上传图片
+</view>
+<view class="button-box">
+  <button type="default" class="save">保存草稿</button>
+  <button type="primary" class="post" form-type="submit">发布任务</button>
+</view>

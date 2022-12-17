@@ -1,0 +1,18 @@
+<!--pages/reset/reset.wxml-->
+<view class="resetbox">
+<view class="accountbox">
+  <text>您的账号</text><input type="nickname" class="usrname"></input>
+</view>
+<view class="accountbox">
+  <text>原密码</text><input type="safe-password" class="old-pswd"></input>
+</view>
+<view class="accountbox">
+  <text>新密码</text><input type="safe-password" class="new-pswd"></input>
+</view>
+<view class="accountbox">
+  <text>确认密码</text><input type="safe-password" class="pswd-comfirm"></input>
+</view>
+<view class="btn-set">
+  <button class="resetbtn" type="primary" bindtap="toReset">确认修改</button>
+</view>
+</view>
