@@ -18,22 +18,24 @@ Page({
         duration: 2000
       })
     } else {
-      // if (e.detail.value.username == "testuser" && e.detail.value.password=="a") {
-      //   var userName = e.detail.value.username;
-      //   var unitId = e.detail.value.id;
-      //   wx.setStorageSync('unitId', unitId);
-      //   wx.setStorageSync('userName', userName);
-      //   wx.switchTab({
-      //     url: '../mine/mine'
-      //   })
-      // } 
-      // else {
-      //   wx.showToast({
-      //     title: "请检查账号或密码！",
-      //     icon: 'none',
-      //     duration: 2000
-      //   })
-      // }
+      ///////////////////////////////测试用账号/////////////////////////////////////
+      if (e.detail.value.username == "testuser" && e.detail.value.password=="a") {
+        var userName = e.detail.value.username;
+        var unitId = e.detail.value.id;
+        wx.setStorageSync('unitId', unitId);
+        wx.setStorageSync('userName', userName);
+        wx.switchTab({
+          url: '../mine/mine'
+        })
+      } 
+      else {
+        wx.showToast({
+          title: "请检查账号或密码！",
+          icon: 'none',
+          duration: 2000
+        })
+      }
+      ///////////////////////////////////////////////////////////////////////
       //发起网络请求，判断用户存在、密码是否正确
       const that = this
       wx.request({
