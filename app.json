@@ -32,7 +32,6 @@
       }
     ]
   },
-  "usingComponents": {},
   "window":{
     "backgroundTextStyle":"dark",
     "navigationBarBackgroundColor": "#2b4b6b",

@@ -2,7 +2,7 @@
 <view class="filter-box">
   <picker mode="selector" bindchange="placeChangeHandler" value="{{placeIndex}}" range="{{placeArray}}">
     <view class="place-filter">
-      <image src="/res/images/定位.png"></image>
+      <image src="/res/images/loc.png"></image>
       <text wx:if="{{placeIndex==0}}">地点</text>
       <text wx:if="{{placeIndex!=0}}">{{placeArray[placeIndex]}}</text>
     </view>
@@ -17,22 +17,28 @@
       </swiper-item>
     </picker>
   </swiper>
-  <view class="order-filter" wx:if="{{order==='ASC'}}" bindtap="orderHandler">
-    ▲
+  <view>
+    <view class="order-filter-type" bindtap="orderTypeHandler">
+      <view>排序类型</view>
+      <view wx:if="{{orderType==='mdate'}}">时间</view>
+      <view wx:if="{{orderType==='rewards'}}">金额</view>
+    </view>
+    <view class="order-filter" wx:if="{{order==='asc'}}" bindtap="orderHandler">
+      <image src="/res/images/asc.png"></image>
+    </view>
+    <view class="order-filter" wx:if="{{order==='desc'}}" bindtap="orderHandler">
+      <image src="/res/images/desc.png"></image>
+    </view>
   </view>
-  <view class="order-filter" wx:if="{{order==='DESC'}}" bindtap="orderHandler">
-    ▼
-  </view>
-
 </view>
 <view class="bg-box">
   <swiper class="swiperPic" autoplay circular indicator-dots>
     <swiper-item wx:for="{{swiperItems}}" wx:key="index">
-      <image src="{{item.url}}"></image>
+      <image src="{{item.url}}" mode="aspectFill"></image>
     </swiper-item>
   </swiper>
   <!-- 任务列表 -->
-  <view class="mission-box" wx:for="{{missionlist}}" wx:key="index" bindtap="acceptMission" id="{{index}}" wx:if="{{item.mplace==placeArray[placeIndex]||placeArray[placeIndex]=='默认全校'}}">
+  <view class="mission-box" wx:for="{{missionlist}}" wx:key="index" bindtap="acceptMission" id="{{index}}" wx:if="{{item.mplace==placeArray[placeIndex]||placeArray[placeIndex]=='全部'}}">
     <image class="mission-img" src="{{item.icon}}" mode="aspectFill"></image>
     <view class="mc-box">
       <view class="mc-title">
@@ -43,7 +49,6 @@
         <view class="mission-date">{{item.mdate}}</view>
         <view class="mission-place">{{item.mplace}}</view>
         <view class="mission-rewards">{{item.rewards}}￥</view>
-
       </view>
     </view>
   </view>

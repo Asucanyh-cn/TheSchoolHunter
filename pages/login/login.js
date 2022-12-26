@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    loginStatus: false,
+    islogin: false,
   },
   //登录操作
   toLogin(e) {
@@ -19,38 +19,40 @@ Page({
       })
     } else {
       ///////////////////////////////测试用账号/////////////////////////////////////
-      if (e.detail.value.username == "testuser" && e.detail.value.password=="a") {
-        var userName = e.detail.value.username;
-        var unitId = e.detail.value.id;
-        wx.setStorageSync('unitId', unitId);
-        wx.setStorageSync('userName', userName);
-        wx.switchTab({
-          url: '../mine/mine'
-        })
-      } 
-      else {
-        wx.showToast({
-          title: "请检查账号或密码！",
-          icon: 'none',
-          duration: 2000
-        })
-      }
+      // if (e.detail.value.username == "testuser" && e.detail.value.password=="a") {
+      //   var userName = e.detail.value.username;
+      //   var unitId = e.detail.value.id;
+      //   wx.setStorageSync('islogin', "true");
+      //   wx.setStorageSync('userName', userName);
+      //   wx.switchTab({
+      //     url: '../mine/mine'
+      //   })
+      // } 
+      // else {
+      //   wx.showToast({
+      //     title: "请检查账号或密码！",
+      //     icon: 'none',
+      //     duration: 2000
+      //   })
+      // }
       ///////////////////////////////////////////////////////////////////////
       //发起网络请求，判断用户存在、密码是否正确
       const that = this
       wx.request({
-        url: 'http://124.71.236.82/api/login?username=%E6%9D%A8%E6%B5%A9&password=567890',
-        method: "POST",
+        url: 'https://tshapi.wantz.zone/api/login',
+        method: "GET",
         data: {
           username: e.detail.value.username,
           password: e.detail.value.password,
         },
         success(res) {
-          console.log(res)
+          // console.log(JSON.parse('{"code":1, "message":"success", "data":{"balance": 5.0, "identity":"普通用户"}}').code)
+          console.log(res.data)
+          // if (JSON.parse('{"code":1, "message":"success", "data":{"balance": 5.0, "identity":"普通用户"}}').code == "1") {
           if (res.data.code == "1") {
             var userName = e.detail.value.username;
             var unitId = e.detail.value.id;
-            wx.setStorageSync('unitId', unitId);
+            wx.setStorageSync('islogin', "true");
             wx.setStorageSync('userName', userName);
             wx.switchTab({
               url: '../mine/mine'
@@ -58,7 +60,8 @@ Page({
           }
           else {
             wx.showToast({
-              title: res.data.message,
+              // title: res.data.message,
+              title:"用户不存在！",
               icon: 'none',
               duration: 2000
             })

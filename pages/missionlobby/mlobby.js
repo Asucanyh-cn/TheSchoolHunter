@@ -5,35 +5,100 @@ Page({
    */
   data: {
     //筛选参数组
-    currentDate: null,
-    placeArray: ['默认全校', '三江楼', '主A楼', '三山楼', '京江楼'],
+    currentDate: '',
+    placeArray: ['全部', '三江楼', '主A楼', '三山楼', '京江楼'],
     timeArray: ['所有时间', '一周内', '五天内', '三天内', '今天'],
-    order: "ASC",
+    orderType: 'mdate',
+    order: "asc",
     //筛选用指针
     placeIndex: "0",
     timeIndex: "0",
     //滚动图和任务列表数据
-    swiperItems: ['a', 'b', 'c', 'd'],
+    swiperItems: [
+      { url: 'https://i.328888.xyz/2022/12/20/AWgaL.jpeg' },
+      { url: 'https://i.328888.xyz/2022/12/20/AWXzk.jpeg' },
+      { url: 'https://i.328888.xyz/2022/12/20/AW70p.jpeg' },
+      { url: 'https://i.328888.xyz/2022/12/20/AWEXU.jpeg' }],
     missionlist: [],
-    page:1,//当前页码
-    pageSize:10,//每页数据条数
-    total:0, //总数据条数
+    page: 1,//当前页码
+    pageSize: 5,//每页数据条数
+    total: 0, //总数据条数
     //页面刷新项
     isloading: false
   },
   //处理排序
-  orderHandler() {
-    if (this.data.order === "ASC") {
+  orderTypeHandler() {
+    if (this.data.orderType === "mdate") {
       this.setData({
-        order: "DESC" //降序
+        orderType: "rewards"
       })
-      console.log(this.data.order)
     }
     else {
       this.setData({
-        order: "ASC" //升序
+        orderType: "mdate"
       })
-      console.log(this.data.order)
+    }
+  },
+  //  根据日期排序
+  sortByDateDesc: function (array, property) {
+    return array.sort(function (a, b) {
+      var value1 = Date.parse(new Date(a[property]));  //转换成十六进制获取日期
+      var value2 = Date.parse(new Date(b[property]));
+      return value2 - value1; //value1-value2是从小到大排序 反过来则是从大到小的排序
+    })
+  },
+  sortByDateAsc: function (array, property) {
+    return array.sort(function (a, b) {
+      var value1 = Date.parse(new Date(a[property]));  //转换成十六进制获取日期
+      var value2 = Date.parse(new Date(b[property]));
+      return value1 - value2; //value1-value2是从小到大排序 反过来则是从大到小的排序
+    })
+  },
+  //对数组的某个属性进行排序
+  sortByRewardsDesc: function (array, property) {
+    return array.sort(function (a, b) {
+      var value1 = a[property];
+      var value2 = b[property];
+      return value2 - value1;
+    })
+  },
+  sortByRewardsAsc: function (array, property) {
+    return array.sort(function (a, b) {
+      var value1 = a[property];
+      var value2 = b[property];
+      return value1 - value2;
+    })
+  },
+  //按类型排序
+  orderHandler() {
+    var orderType = this.data.orderType
+    if (this.data.order === "asc") {
+      this.setData({
+        order: "desc",//降序
+      })
+      if (orderType == 'rewards') {
+        this.setData({
+          missionlist: this.sortByRewardsDesc(this.data.missionlist, orderType)
+        })
+      } else {
+        this.setData({
+          missionlist: this.sortByDateDesc(this.data.missionlist, orderType)
+        })
+      }
+    }
+    else {
+      this.setData({
+        order: "asc",//升序
+      })
+      if (orderType == 'rewards') {
+        this.setData({
+          missionlist: this.sortByRewardsAsc(this.data.missionlist, orderType)
+        })
+      } else {
+        this.setData({
+          missionlist: this.sortByDateAsc(this.data.missionlist, orderType)
+        })
+      }
     }
   },
   //获取当前时间
@@ -57,99 +122,116 @@ Page({
   },
   //地点选择处理
   placeChangeHandler(e) {
-    console.log(e),
-      this.setData({
+    const that = this
+    console.log("地点选择处理：", e),
+      that.setData({
         placeIndex: e.detail.value
       })
-      wx.request({
-        url: 'https://mock.apifox.cn/m1/1896460-0-default/categories/missionlist',
-        method: 'GET',
-        data:{
-          place:this.data.placeArray[this.data.placeIndex],
-          time:this.data.timeArray[this.data.timeIndex],
-          order:this.data.order
-        },
-        success: (res) => {
-          //数据
-          console.log(res.data),
-          //任务列表
-          console.log(res.data.missionlist),
-          //筛选结果
-          console.log(this.data.placeArray[this.data.placeIndex],this.data.timeArray[this.data.timeIndex],this.data.order),
-            this.setData({
-              missionlist: [...this.data.missionlist, ...res.data.missionlist]
-            })
-        },
-        complete: () => {
-          wx.hideLoading(),
-            this.setData({
-              isloading: false
-            })
-        }
-      })
+    that.onPullDownRefresh()
   },
   //时间选择处理
   timeChangeHandler(e) {
-    console.log(e),
-      this.setData({
+    const that = this
+    console.log("时间选择处理", e),
+      that.setData({
         timeIndex: e.detail.value
       })
+    that.onPullDownRefresh()
   },
   //接受任务处理函数
   acceptMission(e) {
-    // this.setData({
-    //   missionIndex:e.currentTarget.id
-    // })
-    console.log(this.data.missionlist[e.currentTarget.id]["content"]),
-      wx.showModal({
-        title: '任务介绍',
-        content: this.data.missionlist[e.currentTarget.id]["content"],
-        confirmText: '接受',
-        success(res) {
-          if (res.confirm) {
-            console.log('用户点击确定') //移除首页任务操作
-          } else if (res.cancel) {
-            console.log('用户点击取消')
-          }
+    const that = this
+    let username = wx.getStorageSync('userName')
+    ///////未登录跳转模块///////////
+    let islogin = wx.getStorageSync('islogin')
+    // console.log(islogin)
+    if (!islogin) {
+      console.log("跳转至登录页")
+      wx.navigateTo({ url: '/pages/login/login' })
+      return
+    }
+    ////////////////////////////////
+    console.log("任务ID与用户userName：", this.data.missionlist[e.currentTarget.id]["id"], username)
+    wx.showModal({
+      title: '任务介绍',
+      content: this.data.missionlist[e.currentTarget.id]["content"],
+      confirmText: '接受',
+      success(res) {
+        if (res.confirm) {
+          wx.request({
+            url: 'https://tshapi.wantz.zone/api/delMission',
+            method: 'GET',
+            data: {
+              id: that.data.missionlist[e.currentTarget.id]["id"],
+              username: that.data.username
+            },
+            success(res) {
+              console.log(res)
+              //成功接收后刷新列表
+              that.onPullDownRefresh()
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
         }
-      })
+      }
+    })
   },
   //任务列表接口
   getMissionList(cb) {
-    this.setData({
+    const that = this
+    that.setData({
       isloading: true
     })
     wx.showLoading({
       title: 'Loading..(・ω'
     })
+    //
+    var timeRange=''
+    if(that.data.timeArray[that.data.timeIndex]==="一周内"){
+      timeRange='oneWeek'
+    }
+    else if(that.data.timeArray[that.data.timeIndex]==="五天内"){
+      timeRange='fiveDays'
+    }
+    else if(that.data.timeArray[that.data.timeIndex]==="三天内"){
+      timeRange='threeDays'
+    }
+    else if(that.data.timeArray[that.data.timeIndex]==="今天"){
+      timeRange='today'
+    }
+    else if(that.data.timeArray[that.data.timeIndex]==="所有时间"){
+      timeRange='all'
+    }
     wx.request({
-      // url: 'https://mock.apifox.cn/m1/1896460-0-default/categories/missionlist1',
-      url:'https://mock.apifox.cn/m1/1896460-0-default/categories/missionlist?apifoxApiId=49073707',
+      url: 'https://tshapi.wantz.zone/api/getMissionList',
       method: 'GET',
-      data:{
+      data: {
         //分页设置
-        _page:this.data.page,
-        _limit:this.data.pageSize,
-        //筛选器传递的参数
-        // place:this.data.placeArray[this.data.placeIndex],
-        // timeRange:this.data.timeArray[this.data.timeIndex],
-        // order:this.data.order
+        page: that.data.page,
+        limit: that.data.pageSize,
+        // //筛选
+        // place: that.data.placeArray[that.data.placeIndex],
+        timeRange: timeRange,
+        // orderName: that.data.orderType,
+        // order: that.data.order
       },
-      success: (res) => {
-        console.log(res.data.length,res),
-        console.log(this.data.placeArray[this.data.placeIndex],this.data.timeArray[this.data.timeIndex],this.data.order),
-          this.setData({
-            // missionlist: [...this.data.missionlist,...res.data.missionlist]
-            missionlist: [...this.data.missionlist,...res.data]
-          })
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success(res) {
+        console.log(that.data.page,res.data.data)
+        that.setData({
+          missionlist: [...that.data.missionlist, ...res.data.data.mission],
+        })
       },
       complete: () => {
         wx.hideLoading(),
-          this.setData({
+          that.setData({
             isloading: false
           })
-          //cb()回调函数。执行在使用方法时用箭头函数传入的函数参数
-          cb && cb()
+        //cb()回调函数。执行在使用方法时用箭头函数传入的函数参数
+        cb && cb()
       }
     })
   },
@@ -166,14 +248,21 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    //////检查是否已经登录，未登录进行提醒///////
+    let islogin = wx.getStorageSync('islogin')
+    if (!islogin) {
+      wx.showToast({
+        title: '登录之后才能进行操作哦！',
+        icon: 'none'
+      })
+    }
+    /////////////////////////////////////////////
   },
 
   /**
@@ -196,12 +285,12 @@ Page({
   onPullDownRefresh() {
     //重置为第一页的数据
     this.setData({
-      page:1,
-      missionlist:[],
-      total:0
+      page: 1,
+      missionlist: [],
+      total: 0
     })
     //传入一个回调函数，来执行停止下拉刷新函数
-    this.getMissionList(()=>{
+    this.getMissionList(() => {
       wx.stopPullDownRefresh()
     })
   },
@@ -210,15 +299,15 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-    if(this.data.page*this.data.pageSize>=this.data.total){
-      return wx.showToast({
-        title: '我是有底线的(ノдヽ)',
-        icon:'none'
-      })
-    }
+    // if (this.data.page * this.data.pageSize >= this.data.total) {
+    //   return wx.showToast({
+    //     title: '我是有底线的(ノдヽ)',
+    //     icon: 'none'
+    //   })
+    // }
     if (!this.data.isloading) {
       this.setData({
-        page:this.data.page + 1
+        page: this.data.page + 1
       })
       this.getMissionList()
     }

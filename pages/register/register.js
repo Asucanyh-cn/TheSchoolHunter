@@ -5,53 +5,53 @@ Page({
    * 页面的初始数据
    */
   data: {
-    flag:false
+ 
   },
   toRegister(e){
-    console.log(e)
+    // console.log(e)
+    const that=this
     var usrn=e.detail.value.username
     var p1=e.detail.value.password1
     var p2=e.detail.value.password2
     this.check(usrn,p1,p2)
-    if(this.data.flag){
-      console.log("Register success!")
-    }
   },
-  check(usrn,p1,p2)
-  {
+  check(usrn,p1,p2){
+    const that=this
     if(p1==''||p2==''||usrn==''){
       wx.showToast({
         title: '账号密码不能为空！',
         icon:'none'
       })
+      return
     }
     else if(p1!=p2){
       wx.showToast({
         title: '密码不一致！',
         icon:'none'
       })
-    }
-    else{
-      this.setData({
-        flag:true
-      })
+      return
     }
     //后端检查用户是否已注册
     wx.request({
-      url: '',
+      url: 'https://tshapi.wantz.zone/api/register',
+      method:'GET',
       data:{
-        username:usrn
+        username:usrn,
+        password:p1,
       },
       success(res){
-        //返回1表示存在
-        if(res.data.code==1){
+        console.log(res.data)
+        console.log(res.data.code)
+        //返回12表示存在
+        if(res.data.code==12){
           wx.showToast({
             title: '账号已存在！',
             icon:'none'
           })
-          this.setData({
-            flag:false
-          })
+        }else{
+            wx.navigateTo({
+              url: '/pages/login/login',
+            })
         }
       }
     })

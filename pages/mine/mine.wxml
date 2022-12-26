@@ -24,10 +24,6 @@
               <image src="{{item.icon}}"></image>
             </view>
             <view class="listtext">{{item.text}}</view>
-            <view class="listicon">{{item.tips}}</view>
-            <view class="arrows">
-              <image src="{{item.arrows}}"></image>
-            </view>
           </view>
         </navigator>
         <!-- 分割线 -->
@@ -39,13 +35,9 @@
         <navigator url="/pages/missionlobby/mlobby" class="lists" open-type="redirect" bindtap="toLogout">
           <view class='content'>
             <view class="listimg">
-              <image src=""></image>
+              <image src="/res/images/exit.png"></image>
             </view>
             <view class="listtext">退出账号</view>
-            <view class="listicon">{{item.tips}}</view>
-            <view class="arrows">
-              <image src=""></image>
-            </view>
           </view>
         </navigator>
         <!-- 分割线 -->

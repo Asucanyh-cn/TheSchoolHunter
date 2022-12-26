@@ -1,23 +1,46 @@
-.post-title{
-  text-align: center;
+page{
+  width: 650rpx;
+  margin: 0 auto;
+}
+.mplace,.mdate{
+  margin: 10rpx;
+}
+.post-title{  
+  font-weight: bolder;
+  font-size: large;
   margin-top: 25rpx;
   margin-bottom: 25rpx;
 }
+text{
+  font-weight:lighter;
+  border-radius: 10rpx ;
+  padding: 10rpx;
+  background: #ffff;
+}
+.points{
+  text-align: center;
+}
 .pi{
-  border: 1rpx solid;
-  width: 600rpx;
+  /* border: 1rpx solid; */
+  border-left: 1rpx solid;
+  width: 650rpx;
   margin: 0 auto;
+
+  border-radius: 10rpx ;
+  padding: 10rpx;
+  background: #ffff;
 }
 .mTitle-i{
   height: 100rpx;
 }
 .mContent-i{
-  height: 400rpx;
+  height: 350rpx;
   /* height: 250rpx; */
 }
 /* 时间地点盒子*/
 .date-place-box{
   display: flex;
+  
   justify-content: space-evenly;
 }
 /*主容器*/
@@ -35,8 +58,9 @@
 }
 /*数值*/
 .stepper input {
+  background: #fff;
   width: 40px;
-  height: 26px;
+  height: 35px;
   /* margin: 0 auto; */
   text-align: center;
   font-size: 12px;
@@ -53,6 +77,11 @@
 }
 /* 上传图片 */
 .postPic{
+  border-radius: 10rpx ;
+  padding: 10rpx;
+  background: #ffff;
+  box-shadow: #7a7a7a 1rpx 1rpx 3rpx;
+
   text-align: center;
   margin: 0 auto;
   width: 250rpx;
@@ -63,4 +92,8 @@
   margin-top: 50rpx;
   display: flex;
   /* border: solid 1rpx; */
+}
+#type1{  
+  background: skyblue;
+  color: #fff;
 }

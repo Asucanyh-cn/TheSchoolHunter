@@ -9,6 +9,7 @@
   <view class="btn-set">
     <button form-type="submit" class="loginbtn" type="primary">登录</button>
     <navigator class="toRegPage" open-type="navigate" url="/pages/register/register">注册</navigator>
+    <navigator class="toHomePage" open-type="switchTab" url="/pages/missionlobby/mlobby">回到主页</navigator>
     <!-- <navigator class="toResetPage" open-type="navigate" url="/pages/reset/reset">修改密码</navigator> -->
   </view>
 </form>

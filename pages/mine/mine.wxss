@@ -34,6 +34,7 @@
   height: 20px;
 }
 .content{
+  padding-left: 20rpx;
   display: flex;
   margin-top: 10px;
   margin-bottom: 10px;
