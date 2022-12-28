@@ -9,10 +9,10 @@
         <text wx:else bindtap="toLoginPage">注册/登录</text>
       </view>
     </view>
-  </view>
-  <!-- 显示我的金额 -->
-  <view class="balance" wx:if="{{userName}}">
-    <text>当前积分 {{balance}}</text>
+    <!-- 显示我的金额 -->
+    <view class="balance" wx:if="{{userName}}">
+      <text>当前积分 {{balance}}</text>
+    </view>
   </view>
   <view class="list-wrapper">
     <!-- “我的”选项列表 -->
@@ -30,18 +30,30 @@
         <view class="divLine"></view>
       </block>
     </view>
-    <!-- 退出选项 -->
-    <view class="alllists"  wx:if="{{userName}}">
-        <navigator url="/pages/missionlobby/mlobby" class="lists" open-type="redirect" bindtap="toLogout">
-          <view class='content'>
-            <view class="listimg">
-              <image src="/res/images/exit.png"></image>
-            </view>
-            <view class="listtext">退出账号</view>
+    <!-- 审核选项 -->
+    <view class="alllists" wx:if="{{userRole==='审核员'||userRole==='管理员'}}">
+      <navigator url="/pages/review/review" class="lists" open-type="redirect">
+        <view class='content'>
+          <view class="listimg">
+            <image src="/res/images/audit.png"></image>
           </view>
-        </navigator>
-        <!-- 分割线 -->
-        <view class="divLine"></view>
+          <view class="listtext">任务审核</view>
+        </view>
+      </navigator>
+      <!-- 分割线 -->
+      <view class="divLine"></view>
+    </view> <!-- 退出选项 -->
+    <view class="alllists" wx:if="{{userName}}">
+      <navigator url="/pages/missionlobby/mlobby" class="lists" open-type="redirect" bindtap="toLogout">
+        <view class='content'>
+          <view class="listimg">
+            <image src="/res/images/exit.png"></image>
+          </view>
+          <view class="listtext">退出账号</view>
+        </view>
+      </navigator>
+      <!-- 分割线 -->
+      <view class="divLine"></view>
     </view>
   </view>
 </view>

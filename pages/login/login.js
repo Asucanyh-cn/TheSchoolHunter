@@ -10,7 +10,6 @@ Page({
   //登录操作
   toLogin(e) {
     var that = this
-    console.log(e)
     if (e.detail.value.username == null || e.detail.value.password == null) {
       wx.showToast({
         title: '账号或密码不能为空',
@@ -50,10 +49,15 @@ Page({
           console.log(res.data)
           // if (JSON.parse('{"code":1, "message":"success", "data":{"balance": 5.0, "identity":"普通用户"}}').code == "1") {
           if (res.data.code == "1") {
-            var userName = e.detail.value.username;
-            var unitId = e.detail.value.id;
-            wx.setStorageSync('islogin', "true");
-            wx.setStorageSync('userName', userName);
+            var userName = e.detail.value.username
+            var userID = res.data.data.userID
+            var userRole = res.data.data.identity
+            var balance = res.data.data.balance
+            wx.setStorageSync('islogin', "true")
+            wx.setStorageSync('userName', userName)
+            wx.setStorageSync('userID', userID)
+            wx.setStorageSync('userRole', userRole)
+            wx.setStorageSync('balance', balance)
             wx.switchTab({
               url: '../mine/mine'
             })

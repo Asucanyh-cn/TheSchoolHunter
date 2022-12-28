@@ -48,7 +48,7 @@
       <view class="decr-box">
         <view class="mission-date">{{item.mdate}}</view>
         <view class="mission-place">{{item.mplace}}</view>
-        <view class="mission-rewards">{{item.rewards}}￥</view>
+        <view class="mission-rewards">{{item.rewards}}</view>
       </view>
     </view>
   </view>

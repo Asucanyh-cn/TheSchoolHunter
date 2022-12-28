@@ -6,13 +6,18 @@ Page({
    */
   data: {
     missionlist: [],
-    userId:0,
     page:1,
     limit:5,
-    //页面刷新项
-    isloading: false
+    isloading: false,
+    // username:'',
+    // miss,
+    
   },
   reviewMission(e) {
+    let that=this
+    let username=wx.getStorageSync('userName')
+    let missionId=that.data.missionlist[e.currentTarget.id]["id"]
+    let status=''
     wx.showModal({
       title: '任务介绍',
       content: this.data.missionlist[e.currentTarget.id]["content"],
@@ -21,13 +26,29 @@ Page({
       success(res) {
         if (res.confirm) {
           console.log('用户点击确定') //添加至任务首页
+          status='已通过'
         } else if (res.cancel) {
           console.log('用户点击取消')
+          status='未通过'
         }
+        wx.request({
+          url: 'https://tshapi.wantz.zone/api/auditMission',
+          method:'GET',
+          data:{
+            username:username,
+            missionId:missionId,
+            status:status
+          },
+          success(res){
+            console.log(res.data,status)
+            that.onPullDownRefresh()
+          }
+        })
       }
     })
   },
   getMissionList(cb) {
+    let username=wx.getStorageSync('userName')
     this.setData({
       isloading: true
     })
@@ -35,19 +56,16 @@ Page({
       title: 'Loading..(・ω'
     })
     wx.request({
-      // url: 'https://mock.apifox.cn/m1/1896460-0-default/categories/missionlist1',
-      // url: 'https://mock.apifox.cn/m1/1896460-0-default/categories/missionlist?apifoxApiId=49073707',
       url:'https://tshapi.wantz.zone/api/getAuditMission',
       method: 'GET',
       data: {
-        userId:this.data.userId,
+        username:username,
         page:this.data.page,
         limit:this.data.limit
       },
       success: (res) => {
-        console.log(res.data.length, res),
+        console.log(res.data.data),
           this.setData({
-            // missionlist: [...this.data.missionlist,...res.data.missionlist]
             missionlist: [...this.data.missionlist, ...res.data.data.mission]
           })
       },
@@ -106,7 +124,10 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-
+    this.setData({
+      missionlist:[]
+    })
+    this.getMissionList()
   },
 
   /**

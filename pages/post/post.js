@@ -43,6 +43,10 @@ Page({
         return
       }
       ////////////////////////////////
+      let mplace=that.data.placesArr[that.data.placeIndex]
+      if(mplace==="请选择任务地点！"){
+        mplace=''
+      }
       console.log("正在发布任务")
       wx.showToast({
         title: '任务已发布，请等待审核通过！',
@@ -58,7 +62,7 @@ Page({
           content: e.detail.value.content,
           rewards: e.detail.value.points,
           mdate: that.data.mdate,
-          mplace: that.data.placesArr[that.data.placeIndex],
+          mplace: mplace,
           icon: that.data.picUrl,
           // type: 0,
           auditStatus: 0,

@@ -1,10 +1,10 @@
 /* pages/mine/mine.wxss */
 .balance{
-  position: absolute;
+  height: 0rpx;
+  position: relative;
   color: #fff;
-  top: 0rpx;
-  left: 500rpx;
-  margin: 50rpx;
+  top: -300rpx;
+  left: 250rpx;
   text-align: center;
 }
 .avatar-wrapper {

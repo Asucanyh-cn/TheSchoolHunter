@@ -8,7 +8,68 @@ Page({
     acceptedMissions: [],
     postingMissions: [],
     currentData: 0,
+    page:1,
+    limit:5,
     username:'',
+  },
+  //已接受的任务
+  checkMyMissions(e){
+    let that=this
+    let title=that.data.acceptedMissions[e.currentTarget.id]["title"]
+    let content=that.data.acceptedMissions[e.currentTarget.id]["content"]
+    console.log()
+    wx.showModal({
+      title: title,
+      content: content,
+      showCancel: false,
+      complete: (res) => {
+        if (res.cancel) {
+          
+        }
+    
+        if (res.confirm) {
+          
+        }
+      }
+    })
+  },
+  //发布中的任务
+  cancelorConfirm(e){
+    let that=this
+    let missionId=that.data.postingMissions[e.currentTarget.id]['id']
+    wx.showModal({
+      title: '任务评分',
+      content: '请你对任务完成情况进行客观打分，这将影响其积分收入！',
+      confirmText:'开始打分',
+      complete: (res) => {
+        if (res.cancel) {
+          //用户点击取消
+        }
+        if (res.confirm) {
+          let scoreList=['5','4','3','2','1']
+          wx.showActionSheet({
+            itemList: scoreList,
+            success (res) {
+              //传递评分用于处理积分
+              let rank=scoreList[res.tapIndex]
+              console.log(missionId,scoreList[res.tapIndex])
+              //移除发布中的任务（结束任务）
+              wx.request({
+                url: 'https://tshapi.wantz.zone/api/finishMission',
+                method:'GET',
+                data:{
+                  missionId:missionId,
+                  rank:rank,
+                }
+              })
+            },
+            fail (res) {
+              console.log(res.errMsg)
+            }
+          })
+        }
+      }
+    })
   },
   //获取任务列表
   getMissionList(cb) {
@@ -21,21 +82,17 @@ Page({
     })
     wx.request({
       url: 'https://tshapi.wantz.zone/api/getMyMission',
-      method: 'POST',
+      method: 'GET',
       data: {
-        //分页设置
-        page: that.data.page,
-        limit: that.data.pageSize,
         username: that.data.username,
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
+        page: that.data.page,
+        limit: that.data.limit,
       },
       success(res) {
         console.log(res)
         that.setData({
-          // acceptedMissions: [...that.data.acceptedMissions, ...res.data.data.acceptedMissions],
-          // postingMissions:[...that.data.postingMissions,...res.data.data.postingMissions]
+          acceptedMissions: [...that.data.acceptedMissions, ...res.data.data.acceptedMissions.mission],
+          postingMissions:[...that.data.postingMissions,...res.data.data.postingMissions.mission]
         })
       },
       complete: () => {

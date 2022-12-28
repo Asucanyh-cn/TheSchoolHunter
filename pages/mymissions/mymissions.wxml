@@ -5,7 +5,7 @@
 <swiper current="{{currentData}}" class='swiper' style="height:600px;" duration="300" bindchange="bindchange">
   <swiper-item>
     <view class='swiper_con'>
-      <view class="mission-box" wx:for="{{acceptedMissions}}" wx:key="index" bindtap="finishedOrCancel" id="{{index}}">
+      <view class="mission-box" wx:for="{{acceptedMissions}}" wx:key="index" bindtap="checkMyMissions" id="{{index}}">
         <image class="mission-img" src="{{item.icon}}" mode="aspectFill"></image>
         <view class="mc-box">
           <view class="mc-title">
@@ -15,7 +15,7 @@
           <view class="decr-box">
             <view class="mission-date">{{item.mdate}}</view>
             <view class="mission-place">{{item.mplace}}</view>
-            <view class="mission-rewards">{{item.rewards}}￥</view>
+            <view class="mission-rewards">{{item.rewards}}</view>
           </view>
         </view>
       </view>
@@ -23,7 +23,7 @@
   </swiper-item>
   <swiper-item>
     <view class='swiper_con'>
-      <view class="mission-box" wx:for="{{postingMissions}}" wx:key="index" bindtap="cancelConfirm" id="{{index}}">
+      <view class="mission-box" wx:for="{{postingMissions}}" wx:key="index" bindtap="cancelorConfirm" id="{{index}}">
         <image class="mission-img" src="{{item.icon}}" mode="aspectFill"></image>
         <view class="mc-box">
           <view class="mc-title">
@@ -33,7 +33,7 @@
           <view class="decr-box">
             <view class="mission-date">{{item.mdate}}</view>
             <view class="mission-place">{{item.mplace}}</view>
-            <view class="mission-rewards">{{item.rewards}}￥</view>
+            <view class="mission-rewards">{{item.rewards}}</view>
           </view>
         </view>
       </view>

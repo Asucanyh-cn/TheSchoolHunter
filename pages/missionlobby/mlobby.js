@@ -21,7 +21,7 @@ Page({
       { url: 'https://i.328888.xyz/2022/12/20/AWEXU.jpeg' }],
     missionlist: [],
     page: 1,//当前页码
-    pageSize: 5,//每页数据条数
+    limit: 5,//每页数据条数
     total: 0, //总数据条数
     //页面刷新项
     isloading: false
@@ -142,6 +142,7 @@ Page({
   acceptMission(e) {
     const that = this
     let username = wx.getStorageSync('userName')
+    let missionId=that.data.missionlist[e.currentTarget.id]["id"]
     ///////未登录跳转模块///////////
     let islogin = wx.getStorageSync('islogin')
     // console.log(islogin)
@@ -150,20 +151,20 @@ Page({
       wx.navigateTo({ url: '/pages/login/login' })
       return
     }
-    ////////////////////////////////
-    console.log("任务ID与用户userName：", this.data.missionlist[e.currentTarget.id]["id"], username)
+    ///////////////////////////////
+    console.log("任务ID与用户userName：", missionId, username)
     wx.showModal({
       title: '任务介绍',
-      content: this.data.missionlist[e.currentTarget.id]["content"],
+      content: that.data.missionlist[e.currentTarget.id]["content"],
       confirmText: '接受',
       success(res) {
         if (res.confirm) {
           wx.request({
-            url: 'https://tshapi.wantz.zone/api/delMission',
+            url: 'https://tshapi.wantz.zone/api/receiveMission',
             method: 'GET',
             data: {
-              id: that.data.missionlist[e.currentTarget.id]["id"],
-              username: that.data.username
+              missionId: missionId,
+              username: username
             },
             success(res) {
               console.log(res)
@@ -187,43 +188,36 @@ Page({
       title: 'Loading..(・ω'
     })
     //
-    var timeRange=''
-    if(that.data.timeArray[that.data.timeIndex]==="一周内"){
-      timeRange='oneWeek'
+    var timeSelected=that.data.timeArray[that.data.timeIndex]
+    if(timeSelected==="一周内"){
+      timeSelected='oneWeek'
     }
-    else if(that.data.timeArray[that.data.timeIndex]==="五天内"){
-      timeRange='fiveDays'
+    else if(timeSelected==="五天内"){
+      timeSelected='fiveDays'
     }
-    else if(that.data.timeArray[that.data.timeIndex]==="三天内"){
-      timeRange='threeDays'
+    else if(timeSelected==="三天内"){
+      timeSelected='threeDays'
     }
-    else if(that.data.timeArray[that.data.timeIndex]==="今天"){
-      timeRange='today'
+    else if(timeSelected==="今天"){
+      timeSelected='today'
     }
-    else if(that.data.timeArray[that.data.timeIndex]==="所有时间"){
-      timeRange='all'
+    else if(timeSelected==="所有时间"){
+      timeSelected='all'
     }
     wx.request({
       url: 'https://tshapi.wantz.zone/api/getMissionList',
       method: 'GET',
       data: {
-        //分页设置
         page: that.data.page,
-        limit: that.data.pageSize,
-        // //筛选
-        // place: that.data.placeArray[that.data.placeIndex],
-        timeRange: timeRange,
-        // orderName: that.data.orderType,
-        // order: that.data.order
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
+        limit: that.data.limit,
+        timeRange: timeSelected,
       },
       success(res) {
-        console.log(that.data.page,res.data.data)
         that.setData({
           missionlist: [...that.data.missionlist, ...res.data.data.mission],
+          total:res.header["x-total-count"]
         })
+        console.log(that.data.page,that.data.total)
       },
       complete: () => {
         wx.hideLoading(),
@@ -283,6 +277,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
+    
     //重置为第一页的数据
     this.setData({
       page: 1,
@@ -299,12 +294,12 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-    // if (this.data.page * this.data.pageSize >= this.data.total) {
-    //   return wx.showToast({
-    //     title: '我是有底线的(ノдヽ)',
-    //     icon: 'none'
-    //   })
-    // }
+    if(this.data.page*this.data.limit>this.data.total){
+      return wx.showToast({
+        title: '我是有底线的(ノдヽ)',
+        icon:'none'
+      })
+    }
     if (!this.data.isloading) {
       this.setData({
         page: this.data.page + 1

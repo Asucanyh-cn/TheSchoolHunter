@@ -1,4 +1,5 @@
 {
   "usingComponents": {},
-  "navigationBarTitleText": "任务审核"
+  "navigationBarTitleText": "任务审核",
+  "enablePullDownRefresh": true
 }
