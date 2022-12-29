@@ -1,16 +1,36 @@
 const app = getApp()
 Page({
   data: {
+    currentDate:'',
     loginflag: true,
     draftflag: false,
     mdate: '请选择截至时间！',
-    placesArr: ['请选择任务地点！', '三江楼', '主A楼', '三山楼'],
+    placesArr: ['请选择任务地点！', '三江楼', '主A楼', '三山楼','新一区','快宝驿站','图书馆'],
     placeIndex: 0,
     num: 1,
     minusStatus: 'disable',
     tempFilePath: '',
     count: 1,
     picUrl: '',
+  },
+  //获取当前时间
+  getCurrentTime() {
+    var timestamp = Date.parse(new Date());
+    var date = new Date(timestamp);
+    //获取年  
+    var Y = date.getFullYear();
+    //获取月  
+    var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1);
+    //获取当日 
+    var D = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+    //还有时分秒
+    var hour = date.getHours();
+    var minute = date.getMinutes();
+    var second = date.getSeconds();
+    console.log("当前日期：" + Y + '年' + M + '月' + D + '日' + hour + '时' + minute + '分' + second + '秒');
+    this.setData({
+      currentDate: Y + '-' + M + '-' + D
+    })
   },
   //发布任务 上传至服务器 任务数据表
   postMission(e) {
@@ -65,7 +85,7 @@ Page({
           mplace: mplace,
           icon: that.data.picUrl,
           // type: 0,
-          auditStatus: 0,
+          // auditStatus: auditStatus,
           username:username,
         },
         success(res) {
@@ -183,7 +203,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    this.getCurrentTime()
+    console.log(this.data.currentDate)
   },
 
   /**

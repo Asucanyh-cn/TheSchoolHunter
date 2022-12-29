@@ -13,7 +13,7 @@
 </view>
 
   <view class="date-place-box post-title">
-    <picker mode="date" header-text="选择时间" value="{{mdate}}" bindchange="bindDateChange">
+    <picker mode="date" header-text="选择时间" start="{{currentDate}}" value="{{mdate}}" bindchange="bindDateChange">
       <view>
         <view class="mdate">截止日期</view>
         <text name="endTime">{{mdate}}</text>

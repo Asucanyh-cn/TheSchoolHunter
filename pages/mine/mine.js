@@ -26,6 +26,7 @@ Page({
   //退出登录
   toLogout() {
     wx.clearStorageSync()
+    this.toLoginPage()
   },
   toLoginPage() {
     wx.navigateTo({

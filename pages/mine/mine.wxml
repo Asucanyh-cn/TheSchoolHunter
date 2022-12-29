@@ -44,14 +44,16 @@
       <view class="divLine"></view>
     </view> <!-- 退出选项 -->
     <view class="alllists" wx:if="{{userName}}">
-      <navigator url="/pages/missionlobby/mlobby" class="lists" open-type="redirect" bindtap="toLogout">
+      <!-- <navigator url="/pages/missionlobby/mlobby" class="lists" open-type="redirect" bindtap="toLogout"> -->
+      <view class="lists" bindtap="toLogout">
         <view class='content'>
           <view class="listimg">
             <image src="/res/images/exit.png"></image>
           </view>
           <view class="listtext">退出账号</view>
         </view>
-      </navigator>
+      </view>
+      <!-- </navigator> -->
       <!-- 分割线 -->
       <view class="divLine"></view>
     </view>
